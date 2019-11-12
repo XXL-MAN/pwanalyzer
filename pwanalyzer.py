@@ -9,9 +9,14 @@ dicsdir = '-dics-'
 
 file1 = open(file1,'r')
 file = []
+results = []
 for i in file1:
 	file.append(i.rstrip())
 file1 = file
+entradas = len(file1)
+
+results.append("\n\n\n* Numero de registros de entrada : "+str(entradas))
+
 
 for dic in os.listdir(dicsdir):
 	cont = 0
@@ -20,13 +25,26 @@ for dic in os.listdir(dicsdir):
 	for i in file2:
 		file.append(i.rstrip())
 	file2 = file
-	with open ("output.txt", "w") as out_file:
-				print("\n\n*** DICCIONARIO : "+dic+"\n")
-				
-				for line in file1:
-					
-					if line in file2:
-						print("Found : "+line)
-						out_file.write(line)
+	results.append("\n\n*** DICCIONARIO : "+dic+"\n")
+	"""
+	print ("* Numero1 : "+str(len(file1)))
+	print ("* Numero2 : "+str(len(file2)))	
+	print file1
+	print file2
+	"""
+	for line in file1:				
+			#cortar por los :
+			if ":" in line:
+				line = line.split(":")[1]
+			
+			if line in file2:
+						print("Found : "+line+"\n")
 						cont += 1
-	print ("* Found Passwords : "+str(cont))
+	results.append("* Found Passwords : "+str(cont))
+	
+	
+	cont = (cont*100)/entradas
+	results.append("* Percentage	  : "+str(cont)+"%")
+	
+for i in results:
+		print i
