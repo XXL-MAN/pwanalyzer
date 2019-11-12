@@ -14,6 +14,10 @@ pwanalyzer.py
 
 USAGE python pwanalyzer.py [password_file]
 
+RETURNS: Number of ocurrences of entries on password file on each dictionary file, with percentages.
+
 pwchecker.py
 
 USAGE python pwchecker.py [password] [dictionary_forbidden_passwords_file]
+
+RETURNS: Exit code 0 or 1 (independant windows or linux)
