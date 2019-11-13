@@ -1,6 +1,6 @@
 # pwanalyzer & pwchecker
 
-A Python way to avoid weak passwords via corporate policy and forbidden words dictionary
+A Python way to avoid weak passwords via corporate policy and forbidden words dictionary (PWCHECKER). This also includes an script to validate our full password list to compare to common brute force dictionaries, returning ocurrences and percentages.
 
 You can insert most popular big pw dictionary ROCKYOU.txt and add to -dics- folder:
 
