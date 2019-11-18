@@ -2,23 +2,30 @@
 # Andres Naranjo @TheXXLMAN - ElevenPaths 2019
 
 # compara una cadena de texto como argumento 1 contra la política de contraseñas
-# #especificada y el archivo de contraseñas prohibidas en arg.2
+# especificada y el archivo de contraseñas prohibidas en arg.2
+#
+# echo %ERRORLEVEL% - Windows
+# echo $?           - Linux
+#
+# Exit code 1 = Password is forbidden
+# Exit code 2 = Password doesn't match password policy
 
-import sys  # ,os
+import sys 
 
-# PASSWORD POLICY DEFINITION contants
+# PASSWORD POLICY DEFINITION CONTENTS
+# EDIT WITH CORRECT VALUES
 
-MINLENGHT    = 8  # min password lenght
-MAXLENGHT    = 25  # max password lenght
-NUMCHARS     = True  # numeric characters
-UPPERCHARS   = True  # UPPERCASE characters
-LOWERCHARS   = True  # Lowercase characters
+MINLENGHT = 8  # min password lenght
+MAXLENGHT = 25  # max password lenght
+NUMCHARS = True  # numeric characters
+UPPERCHARS = True  # UPPERCASE characters
+LOWERCHARS = True  # Lowercase characters
 SPECIALCHARS = True  # Special chars (below list) in password
 SpecialSym = ['$', '@', '#', '%']  # list of special chars, edit to add more
 
 
 # Password validation in Python
-# Function to validate the password 
+# Function to validate the password with password policy
 def password_check(passwd):
     val = True
 
@@ -53,6 +60,7 @@ def password_check(passwd):
     if val:
         return val
 
+
 try:
     passwd = sys.argv[1]
     dic = sys.argv[2]
@@ -60,17 +68,17 @@ except:
     print("USAGE python pwchecker.py [password] [dictionary_forbidden_passwords_file]")
     sys.exit(2)
 
-
-file1 = open(dic,'r')
+file1 = open(dic, 'r')
 file = []
 results = []
 for i in file1:
-	file.append(i.rstrip())
-dic = file
+    file.append(i.rstrip())
 
-if password_check(passwd) and (not passwd in file):
-	sys.exit(0)
-else:
-	sys.exit(1)
-	
-#print(password_check(passwd))
+if not password_check(passwd):
+    #print(2) # Exit code 2
+    sys.exit(2)
+if passwd in file:
+    #print(1) # Exit code 1
+    sys.exit(1)
+
+sys.exit(0)
